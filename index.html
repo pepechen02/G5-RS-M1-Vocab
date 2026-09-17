@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RS M1 Vocab</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; }
+
+  :root {
+    --ink: #232946;
+    --paper: #fffdf6;
+    --paper-dim: #f2ecdd;
+    --amber: #eeb95c;
+    --amber-dark: #c98f2e;
+    --teal: #4f9d78;
+    --muted: #8b8fae;
+  }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  body {
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    padding: 28px 20px 36px;
+  }
+
+  .vl-root { max-width: 880px; margin: 0 auto; }
+
+  .vl-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 22px;
+  }
+  .vl-header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+  .vl-header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+  .vl-progress-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    height: 6px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .vl-progress-fill {
+    background: linear-gradient(90deg, var(--teal), #7ec89b);
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .vl-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .vl-layout { grid-template-columns: 1fr; }
+  }
+
+  .vl-stage { display: flex; flex-direction: column; align-items: center; }
+
+  .vl-deck { position: relative; width: 100%; max-width: 380px; height: 260px; }
+  .vl-stack-layer {
+    position: absolute; inset: 0; border-radius: 14px;
+    background: var(--paper-dim); border: 1px solid rgba(35,41,70,0.08);
+  }
+  .vl-stack-layer.l1 { transform: rotate(-4deg) translateY(6px); opacity: 0.6; }
+  .vl-stack-layer.l2 { transform: rotate(3deg) translateY(10px); opacity: 0.4; }
+
+  .vl-flip-container { position: relative; width: 100%; height: 100%; perspective: 1600px; cursor: pointer; }
+  .vl-flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d;
+  }
+  .vl-flip-inner.is-flipped { transform: rotateY(180deg); }
+  .vl-face {
+    position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+    border-radius: 14px; background: var(--paper); color: var(--ink);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.28); padding: 22px;
+    display: flex; flex-direction: column;
+  }
+  .vl-face-back { transform: rotateY(180deg); }
+
+  .vl-tab {
+    position: absolute; top: -10px; left: 20px; background: var(--amber); color: var(--ink);
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .vl-pos-row { padding-top: 4px; }
+  .vl-pos-badge {
+    display: inline-block; background: rgba(79,157,120,0.14); color: var(--teal);
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    border: 1px solid rgba(79,157,120,0.4);
+  }
+
+  .vl-mastered-dot {
+    position: absolute; top: 14px; right: 16px; width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 1.5px solid rgba(35,41,70,0.25); color: rgba(35,41,70,0.25); font-size: 12px;
+  }
+  .vl-mastered-dot.on { background: var(--teal); border-color: var(--teal); color: white; }
+
+  .vl-face-body {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; gap: 14px; padding: 6px 4px 0;
+  }
+  .vl-word { font-family: 'Fraunces', serif; font-weight: 600; font-size: 28px; line-height: 1.3; word-break: break-word; }
+  .vl-answer { font-size: 16px; line-height: 1.6; color: #3a3f5c; max-width: 30ch; white-space: pre-line; }
+  .vl-hint { font-size: 12px; color: var(--muted); }
+
+  .vl-play-btn {
+    border: none; background: var(--amber); color: var(--ink); width: 40px; height: 40px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.18); font-size: 16px; transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .vl-play-btn:hover { background: var(--amber-dark); transform: scale(1.06); }
+  .vl-play-btn:active { transform: scale(0.94); }
+
+  .vl-example {
+    width: 100%; max-width: 380px; margin-top: 16px;
+    border: 1px dashed rgba(255,255,255,0.22); border-radius: 10px; padding: 12px 14px;
+  }
+  .vl-example-head {
+    font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 8px;
+  }
+  .vl-example-body { text-align: left; }
+  .vl-example-sentence {
+    font-family: 'Fraunces', serif; font-size: 15px; line-height: 1.55; color: var(--paper);
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .vl-example-play {
+    border: none; background: transparent; color: var(--amber); cursor: pointer;
+    display: flex; align-items: center; flex-shrink: 0; padding: 2px; font-size: 13px;
+  }
+  .vl-example-play:hover { color: var(--amber-dark); }
+  .vl-example-translation { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+  .vl-controls { margin-top: 20px; display: flex; align-items: center; gap: 10px; }
+  .vl-icon-btn {
+    border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: var(--paper);
+    width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 17px; transition: background 0.15s ease;
+  }
+  .vl-icon-btn:hover { background: rgba(255,255,255,0.14); }
+
+  .vl-pill-btn {
+    border: none; background: var(--teal); color: white; font-size: 13px; font-weight: 600;
+    padding: 10px 18px; border-radius: 999px; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    transition: filter 0.15s ease;
+  }
+  .vl-pill-btn.is-off { background: rgba(255,255,255,0.08); color: var(--paper); border: 1px solid rgba(255,255,255,0.2); }
+  .vl-pill-btn:hover { filter: brightness(1.08); }
+
+  .vl-shuffle-btn {
+    border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06); color: var(--paper);
+    font-size: 13px; padding: 10px 14px; border-radius: 999px; display: flex; align-items: center; gap: 6px; cursor: pointer;
+  }
+  .vl-shuffle-btn:hover { background: rgba(255,255,255,0.14); }
+
+  .vl-position { margin-top: 14px; font-size: 12px; color: var(--muted); }
+
+  .vl-panel { border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; padding: 18px; }
+  .vl-panel h2 { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 600; margin: 0 0 4px; }
+  .vl-panel .vl-sub { font-size: 12px; color: var(--muted); margin: 0 0 14px; }
+
+  .vl-field-label { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 8px; display: block; }
+
+  .vl-radio-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .vl-radio-chip {
+    font-size: 12px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2);
+    background: transparent; color: var(--paper); cursor: pointer;
+  }
+  .vl-radio-chip.active { background: var(--amber); color: var(--ink); border-color: var(--amber); font-weight: 600; }
+
+  .vl-toggle-row { display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+  .vl-switch {
+    width: 38px; height: 22px; border-radius: 999px; background: rgba(255,255,255,0.15); position: relative;
+    cursor: pointer; flex-shrink: 0; transition: background 0.2s ease;
+  }
+  .vl-switch.on { background: var(--teal); }
+  .vl-switch-knob {
+    position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%;
+    background: white; transition: left 0.2s ease;
+  }
+  .vl-switch.on .vl-switch-knob { left: 19px; }
+
+  .vl-note {
+    margin-top: 18px; padding-top: 16px; border-top: 1px dashed rgba(255,255,255,0.15);
+    font-size: 11.5px; color: var(--muted); line-height: 1.6;
+  }
+
+  .vl-toast {
+    max-width: 880px; margin: 14px auto 0; background: rgba(79,157,120,0.18);
+    border: 1px solid rgba(79,157,120,0.5); color: #cdeedb; font-size: 12.5px; padding: 8px 14px;
+    border-radius: 8px; text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="vl-root" id="app">
+  <div class="vl-header">
+    <div>
+      <h1>RS M1 Vocab</h1>
+      <p>點擊卡片翻面，按 🔊 聽發音；每張卡都附詞性與例句</p>
+    </div>
+    <div style="min-width:160px;">
+      <div class="vl-progress-track"><div class="vl-progress-fill" id="progressFill"></div></div>
+      <div id="progressLabel" style="font-size:11px;color:var(--muted);margin-top:6px;text-align:right;"></div>
+    </div>
+  </div>
+
+  <div class="vl-layout">
+    <div class="vl-stage">
+      <div class="vl-deck">
+        <div class="vl-stack-layer l2"></div>
+        <div class="vl-stack-layer l1"></div>
+        <div class="vl-flip-container" id="flipContainer" data-action="flip">
+          <div class="vl-flip-inner" id="flipInner">
+            <div class="vl-face" id="faceFront"></div>
+            <div class="vl-face vl-face-back" id="faceBack"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="vl-example" id="exampleBlock"></div>
+
+      <div class="vl-controls">
+        <button class="vl-icon-btn" data-action="prev" aria-label="上一張">‹</button>
+        <button class="vl-shuffle-btn" data-action="shuffle">🔀 打亂</button>
+        <button class="vl-pill-btn is-off" id="masteredBtn" data-action="toggle-mastered">✓ 標記已掌握</button>
+        <button class="vl-icon-btn" data-action="next" aria-label="下一張">›</button>
+      </div>
+      <div class="vl-position" id="positionText"></div>
+    </div>
+
+    <div class="vl-panel">
+      <h2>語音設定</h2>
+      <p class="vl-sub">全部為英文詞彙，可調整朗讀方式</p>
+
+      <span class="vl-field-label">朗讀語言</span>
+      <div class="vl-radio-row" id="langRow">
+        <button class="vl-radio-chip active" data-action="set-lang" data-lang="auto">自動判斷</button>
+        <button class="vl-radio-chip" data-action="set-lang" data-lang="en">英文</button>
+      </div>
+
+      <div class="vl-toggle-row">
+        <span>翻面時自動朗讀背面</span>
+        <div class="vl-switch on" id="autoSpeakSwitch" data-action="toggle-autospeak"><div class="vl-switch-knob"></div></div>
+      </div>
+
+      <div class="vl-note">此題庫已定版，共 30 張卡片，詞性與例句已預先寫入頁面，任何人打開連結都能直接使用。</div>
+    </div>
+  </div>
+
+  <div class="vl-toast" id="toast" style="display:none;"></div>
+</div>
+
+<script>
+  var DECK = [
+    { front: "locomotives", back: "火車頭", pos: "名詞", sentence: "Locomotives are the engines that make a train go forward.", translation: "火車頭是讓火車前進的引擎。" },
+    { front: "chugged", back: "嘟嘟作響地前進", pos: "動詞", sentence: "If a machine chugged along, it moved slowly and noisily. Locomotives pulling freight cars leave the railroad yard every thirty minutes.", translation: "如果機器嘟嘟作響地前進，代表它緩慢且吵雜地移動。牽引貨運車廂的火車頭每三十分鐘就會駛離調車場一次。" },
+    { front: "gadgets", back: "小玩意、小工具", pos: "名詞", sentence: "Gadgets are small, specialized machines or electronic devices. The toolbox at the hardware store had various gadgets.", translation: "小玩意是體積小、功能專門的機器或電子裝置。五金行的工具箱裡有各式各樣的小工具。" },
+    { front: "phonograph", back: "留聲機", pos: "名詞", sentence: "A phonograph is an old machine that played recorded music or sound. Long ago people played music on a phonograph.", translation: "留聲機是一種播放錄製音樂或聲音的老式機器。很久以前，人們用留聲機播放音樂。" },
+    { front: "sputtered", back: "發出爆裂聲、噴濺", pos: "動詞", sentence: "If something sputtered, it worked in a rough or uneven way and made popping noises. The engine sputtered as the car drove down the road.", translation: "如果某物發出爆裂聲，代表它運作得不順暢並發出啪啪聲。這輛車行駛時引擎發出爆裂聲。" },
+    { front: "flop", back: "徹底失敗、完全失敗之物", pos: "名詞", sentence: "Something that is a flop is a complete failure. The cake he baked was a flop and tasted awful.", translation: "flop 指的是徹底的失敗。他烤的蛋糕徹底失敗，味道很糟。" },
+    { front: "incandescent", back: "白熾的、發白光的", pos: "形容詞", sentence: "Something that is incandescent gives off a lot of light. We replaced the burnt out light bulbs with incandescent bulbs.", translation: "白熾的東西會發出大量的光。我們把燒壞的燈泡換成白熾燈泡。" },
+    { front: "cylinder", back: "圓柱體、汽缸", pos: "名詞", sentence: "A cylinder has circular ends and straight sides. In an engine, a cylinder takes in gas to make other parts move. The mechanic replaced the leaky cylinder with a new one.", translation: "圓柱體有圓形的兩端和筆直的側面。在引擎裡，汽缸吸入氣體以帶動其他零件運轉。技師把漏氣的汽缸換成新的。" },
+    { front: "patents", back: "專利、專利證書", pos: "名詞", sentence: "Patents are legal documents. If you get a patent for an invention, no one else is allowed to make or sell it. Scientists protect their inventions with patents so no one can copy them.", translation: "專利是一種法律文件。如果你為一項發明取得專利，其他人就不能製造或販售它。科學家用專利保護發明，以免被抄襲。" },
+    { front: "excel", back: "擅長、表現優秀", pos: "動詞", sentence: "To excel at something is to be very good at it. My brother passed the FCE exam last year. He excels in English.", translation: "在某件事上表現優秀就是非常擅長那件事。我哥哥去年通過了 FCE 考試，他的英文很出色。" },
+    { front: "microphone", back: "麥克風", pos: "名詞", sentence: "A device that is used for recording sounds or for making your voice louder. The police recorded the criminals’ plans on a hidden microphone.", translation: "麥克風是用來錄音或放大聲音的裝置。警方用隱藏式麥克風錄下了罪犯的計畫。" },
+    { front: "saxophone", back: "薩克斯風", pos: "名詞", sentence: "A musical instrument that you blow into. It belongs to the woodwind family. A lot of jazz music involves the saxophone.", translation: "薩克斯風是一種用嘴吹奏的樂器，屬於木管樂器家族。許多爵士樂都會用到薩克斯風。" },
+    { front: "phonetics", back: "語音學", pos: "名詞", sentence: "The study of speech sounds and how they are produced. Students learn phonetics when they study a foreign language.", translation: "語音學是研究語音及其發音方式的學問。學生在學習外語時會學到語音學。" },
+    { front: "homophone", back: "同音異義字", pos: "名詞", sentence: "A word that is pronounced like another word but has a different spelling or meaning. Plain and plane are homophones.", translation: "同音異義字是發音相同、但拼法或意思不同的字。plain 和 plane 就是一組同音異義字。" },
+    { front: "extinct", back: "絕種的、滅絕的", pos: "形容詞", sentence: "No longer in existence. Dinosaurs are extinct.", translation: "不復存在的。恐龍已經滅絕了。" },
+    { front: "extension", back: "擴大、延伸、電話分機", pos: "名詞", sentence: "The act of increasing the area of activity or group of people. The extension of new technology could change health care forever.", translation: "擴大活動範圍或群體規模的行為。新科技的普及可能徹底改變醫療照護。" },
+    { front: "elapse", back: "（時間）消逝、流逝", pos: "動詞", sentence: "If a period of time elapses, it passes. Many years elapsed before they met again.", translation: "一段時間消逝，就是它過去了。過了許多年他們才再次相見。" },
+    { front: "eject", back: "逐出、驅逐、彈出", pos: "動詞", sentence: "To push/ force somebody/ something out. The teacher ejected 2 students from the class.", translation: "把某人或某物驅逐出去。老師把兩名學生趕出了教室。" },
+    { front: "exterior", back: "外部、外表", pos: "名詞", sentence: "The outside of something, especially a building. The exterior of the new building looks cool.", translation: "某物的外部，尤指建築物。這棟新大樓的外觀看起來很酷。" },
+    { front: "enormity", back: "巨大、嚴重性", pos: "名詞", sentence: "The very great size, effect, etc. of something; the fact of something being very serious. The full enormity of the damage the earthquake caused is not yet known.", translation: "某事物的巨大程度、影響等；某事物非常嚴重的事實。地震造成損害的嚴重程度目前尚未清楚。" },
+    { front: "spectator", back: "觀眾、旁觀者", pos: "名詞", sentence: "A person who is watching an event, especially a sports event. The new football stadium will hold 75 000 spectators.", translation: "觀看活動的人，尤指觀看體育賽事的人。新的足球場將可容納七萬五千名觀眾。" },
+    { front: "sensation", back: "感覺、知覺", pos: "名詞", sentence: "A feeling that you get when something affects your body. I had a sensation of falling as if I were in a dream.", translation: "某事物影響身體時產生的感覺。我有一種彷彿在夢中墜落的感覺。" },
+    { front: "invisible", back: "看不見的、隱形的", pos: "形容詞", sentence: "Something that cannot be seen. A wizard who can make himself invisible.", translation: "看不見的東西。一位能讓自己隱形的巫師。" },
+    { front: "twinkling", back: "閃爍、閃耀", pos: "動詞", sentence: "To shine with a light that keeps changing from bright to pale to bright again. The stars are twinkling in the sky.", translation: "發出忽明忽暗、不斷變化的光。星星在天空中閃爍。" },
+    { front: "tropical", back: "熱帶的", pos: "形容詞", sentence: "Coming from or found near the tropics (area near the equator.) Malaysia’s climate is tropical.", translation: "來自或存在於熱帶（靠近赤道的地區）。馬來西亞的氣候是熱帶氣候。" },
+    { front: "prosperous", back: "繁榮的、富裕的", pos: "形容詞", sentence: "Rich and successful. People are more prosperous in the north of the country.", translation: "富裕且成功的。這個國家北部的人們較為富裕。" },
+    { front: "subsequent", back: "隨後的、後來的", pos: "形容詞", sentence: "Happening or coming after something else. Subsequent generations will learn languages differently than we do today.", translation: "發生在其他事情之後的。後代學習語言的方式將與我們現在不同。" },
+    { front: "bustling", back: "熙熙攘攘的、繁忙的", pos: "形容詞", sentence: "Full of people moving about in a busy way. The market was bustling with life.", translation: "到處都是忙碌走動的人群。市場裡熙來攘往、充滿活力。" },
+    { front: "soccer", back: "英式足球", pos: "名詞", sentence: "A game played by two teams of 11 players, using a round ball which players kick. They were watching a game of soccer on TV.", translation: "由兩隊各十一名球員用腳踢圓球進行的比賽。他們當時正在電視上看一場足球賽。" },
+    { front: "chore", back: "家務雜事、日常瑣事", pos: "名詞", sentence: "A task that you do regularly. I do many chores around the house for my pocket money.", translation: "你經常做的任務。我為了零用錢在家裡做了很多家事。" },
+  ].map(function (c, i) { c.id = i; return c; });
+
+  var state = {
+    order: DECK.map(function (_, i) { return i; }),
+    pos: 0,
+    flipped: false,
+    mastered: {},
+    autoSpeak: true,
+    langMode: "auto"
+  };
+
+  var toastTimer = null;
+
+  function wordScript(text) {
+    return /[\u3040-\u30ff\u31f0-\u31ff\u3400-\u9fff]/.test(text) ? "ja" : "en";
+  }
+  function detectLang(text, mode) {
+    if (mode === "en") return "en-US";
+    if (mode === "ja") return "ja-JP";
+    return wordScript(text) === "ja" ? "ja-JP" : "en-US";
+  }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (s) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[s];
+    });
+  }
+  function current() { return DECK[state.order[state.pos]]; }
+
+  function speak(text, forceLang) {
+    if (!("speechSynthesis" in window) || !text) return;
+    window.speechSynthesis.cancel();
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = forceLang || detectLang(text, state.langMode);
+    utter.rate = 0.92;
+    window.speechSynthesis.speak(utter);
+  }
+
+  function renderFront() {
+    var card = current();
+    var isMastered = !!state.mastered[card.id];
+    document.getElementById("faceFront").innerHTML =
+      '<div class="vl-tab">#' + (state.pos + 1) + '</div>' +
+      '<div class="vl-mastered-dot ' + (isMastered ? "on" : "") + '">' + (isMastered ? "✓" : "") + '</div>' +
+      '<div class="vl-face-body">' +
+        '<div class="vl-word">' + escapeHtml(card.front) + '</div>' +
+        '<div class="vl-hint">點擊卡片查看解答</div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:center;">' +
+        '<button class="vl-play-btn" data-action="play-front" aria-label="播放正面發音">🔊</button>' +
+      '</div>';
+  }
+
+  function renderBack() {
+    var card = current();
+    var isMastered = !!state.mastered[card.id];
+    document.getElementById("faceBack").innerHTML =
+      '<div class="vl-mastered-dot ' + (isMastered ? "on" : "") + '">' + (isMastered ? "✓" : "") + '</div>' +
+      '<div class="vl-pos-row"><span class="vl-pos-badge">' + escapeHtml(card.pos) + '</span></div>' +
+      '<div class="vl-face-body">' +
+        '<div class="vl-answer">' + escapeHtml(card.back) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:center;">' +
+        '<button class="vl-play-btn" data-action="play-back" aria-label="播放背面發音">🔊</button>' +
+      '</div>';
+  }
+
+  function renderExample() {
+    var card = current();
+    document.getElementById("exampleBlock").innerHTML =
+      '<div class="vl-example-head">例句</div>' +
+      '<div class="vl-example-body">' +
+        '<div class="vl-example-sentence">' + escapeHtml(card.sentence) +
+          '<button class="vl-example-play" data-action="play-example" aria-label="播放例句發音">🔊</button>' +
+        '</div>' +
+        '<div class="vl-example-translation">' + escapeHtml(card.translation) + '</div>' +
+      '</div>';
+  }
+
+  function renderControls() {
+    var card = current();
+    var isMastered = !!state.mastered[card.id];
+    var btn = document.getElementById("masteredBtn");
+    btn.className = "vl-pill-btn" + (isMastered ? "" : " is-off");
+    btn.innerHTML = "✓ " + (isMastered ? "已掌握" : "標記已掌握");
+    document.getElementById("positionText").textContent = "第 " + (state.pos + 1) + " / " + state.order.length + " 張";
+  }
+
+  function renderProgress() {
+    var masteredCount = Object.values(state.mastered).filter(Boolean).length;
+    var total = DECK.length;
+    var pct = total ? Math.round((masteredCount / total) * 100) : 0;
+    document.getElementById("progressFill").style.width = pct + "%";
+    document.getElementById("progressLabel").textContent = "已掌握 " + masteredCount + " / " + total;
+  }
+
+  function applyFlipClass() {
+    document.getElementById("flipInner").className = "vl-flip-inner" + (state.flipped ? " is-flipped" : "");
+  }
+
+  function renderAll() {
+    renderFront();
+    renderBack();
+    renderExample();
+    renderControls();
+    renderProgress();
+    applyFlipClass();
+  }
+
+  function flipCard() {
+    state.flipped = !state.flipped;
+    applyFlipClass();
+    if (state.flipped && state.autoSpeak) {
+      var card = current();
+      setTimeout(function () { if (state.flipped) speak(card.back); }, 320);
+    }
+  }
+
+  function goTo(nextPos) {
+    window.speechSynthesis.cancel();
+    state.flipped = false;
+    state.pos = ((nextPos % state.order.length) + state.order.length) % state.order.length;
+    renderAll();
+  }
+
+  function shuffleDeck() {
+    var arr = DECK.map(function (c) { return c.id; });
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    window.speechSynthesis.cancel();
+    state.order = arr;
+    state.pos = 0;
+    state.flipped = false;
+    renderAll();
+    showToast("已重新打亂順序");
+  }
+
+  function toggleMastered() {
+    var card = current();
+    state.mastered[card.id] = !state.mastered[card.id];
+    renderControls();
+    renderFront();
+    renderBack();
+    renderProgress();
+  }
+
+  function setLangMode(mode) {
+    state.langMode = mode;
+    document.querySelectorAll("#langRow .vl-radio-chip").forEach(function (el) {
+      el.classList.toggle("active", el.getAttribute("data-lang") === mode);
+    });
+  }
+
+  function toggleAutoSpeak() {
+    state.autoSpeak = !state.autoSpeak;
+    document.getElementById("autoSpeakSwitch").classList.toggle("on", state.autoSpeak);
+  }
+
+  function showToast(msg) {
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.style.display = "block";
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.style.display = "none"; }, 2200);
+  }
+
+  function playExample() {
+    var card = current();
+    speak(card.sentence, "ja-JP");
+  }
+
+  function handleClick(e) {
+    var btn = e.target.closest("[data-action]");
+    if (!btn) return;
+    var action = btn.getAttribute("data-action");
+    if (action === "flip") flipCard();
+    else if (action === "play-front") speak(current().front);
+    else if (action === "play-back") speak(current().back);
+    else if (action === "play-example") playExample();
+    else if (action === "prev") goTo(state.pos - 1);
+    else if (action === "next") goTo(state.pos + 1);
+    else if (action === "shuffle") shuffleDeck();
+    else if (action === "toggle-mastered") toggleMastered();
+    else if (action === "set-lang") setLangMode(btn.getAttribute("data-lang"));
+    else if (action === "toggle-autospeak") toggleAutoSpeak();
+  }
+
+  function boot() {
+    document.getElementById("app").addEventListener("click", handleClick);
+    renderAll();
+  }
+
+  document.addEventListener("DOMContentLoaded", boot);
+</script>
+</body>
+</html>
