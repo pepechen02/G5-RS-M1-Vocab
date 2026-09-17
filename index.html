@@ -350,20 +350,6 @@
     window.speechSynthesis.speak(utter);
   }
 
-  // The back face mixes Chinese meaning + an English definition on separate
-  // lines; read each line in its own detected language instead of one voice
-  // guessing at the whole mixed string.
-  function speakMultiline(text) {
-    if (!("speechSynthesis" in window) || !text) return;
-    window.speechSynthesis.cancel();
-    text.split("\n").filter(Boolean).forEach(function (line) {
-      var utter = new SpeechSynthesisUtterance(line);
-      utter.lang = detectLang(line, state.langMode);
-      utter.rate = 0.92;
-      window.speechSynthesis.speak(utter);
-    });
-  }
-
   function renderFront() {
     var card = current();
     var isMastered = !!state.mastered[card.id];
