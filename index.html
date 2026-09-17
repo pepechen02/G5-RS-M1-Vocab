@@ -319,12 +319,20 @@
   var toastTimer = null;
 
   function wordScript(text) {
-    return /[\u3040-\u30ff\u31f0-\u31ff\u3400-\u9fff]/.test(text) ? "ja" : "en";
+    // Hiragana/katakana are a reliable Japanese signal. Plain CJK ideographs
+    // (with no kana) are treated as Chinese, since this deck's Chinese text
+    // shares that same Unicode block with Japanese kanji.
+    if (/[\u3040-\u30ff\u31f0-\u31ff]/.test(text)) return "ja";
+    if (/[\u3400-\u9fff]/.test(text)) return "zh";
+    return "en";
   }
   function detectLang(text, mode) {
     if (mode === "en") return "en-US";
     if (mode === "ja") return "ja-JP";
-    return wordScript(text) === "ja" ? "ja-JP" : "en-US";
+    var script = wordScript(text);
+    if (script === "ja") return "ja-JP";
+    if (script === "zh") return "zh-TW";
+    return "en-US";
   }
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (s) {
@@ -340,6 +348,20 @@
     utter.lang = forceLang || detectLang(text, state.langMode);
     utter.rate = 0.92;
     window.speechSynthesis.speak(utter);
+  }
+
+  // The back face mixes Chinese meaning + an English definition on separate
+  // lines; read each line in its own detected language instead of one voice
+  // guessing at the whole mixed string.
+  function speakMultiline(text) {
+    if (!("speechSynthesis" in window) || !text) return;
+    window.speechSynthesis.cancel();
+    text.split("\n").filter(Boolean).forEach(function (line) {
+      var utter = new SpeechSynthesisUtterance(line);
+      utter.lang = detectLang(line, state.langMode);
+      utter.rate = 0.92;
+      window.speechSynthesis.speak(utter);
+    });
   }
 
   function renderFront() {
@@ -474,7 +496,7 @@
 
   function playExample() {
     var card = current();
-    speak(card.sentence, "ja-JP");
+    speak(card.sentence, "en-US");
   }
 
   function handleClick(e) {
