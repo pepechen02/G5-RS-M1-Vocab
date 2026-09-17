@@ -275,36 +275,36 @@
 
 <script>
   var DECK = [
-    { front: "locomotives", back: "火車頭", pos: "名詞", sentence: "Locomotives are the engines that make a train go forward.", translation: "火車頭是讓火車前進的引擎。" },
-    { front: "chugged", back: "嘟嘟作響地前進", pos: "動詞", sentence: "If a machine chugged along, it moved slowly and noisily. Locomotives pulling freight cars leave the railroad yard every thirty minutes.", translation: "如果機器嘟嘟作響地前進，代表它緩慢且吵雜地移動。牽引貨運車廂的火車頭每三十分鐘就會駛離調車場一次。" },
-    { front: "gadgets", back: "小玩意、小工具", pos: "名詞", sentence: "Gadgets are small, specialized machines or electronic devices. The toolbox at the hardware store had various gadgets.", translation: "小玩意是體積小、功能專門的機器或電子裝置。五金行的工具箱裡有各式各樣的小工具。" },
-    { front: "phonograph", back: "留聲機", pos: "名詞", sentence: "A phonograph is an old machine that played recorded music or sound. Long ago people played music on a phonograph.", translation: "留聲機是一種播放錄製音樂或聲音的老式機器。很久以前，人們用留聲機播放音樂。" },
-    { front: "sputtered", back: "發出爆裂聲、噴濺", pos: "動詞", sentence: "If something sputtered, it worked in a rough or uneven way and made popping noises. The engine sputtered as the car drove down the road.", translation: "如果某物發出爆裂聲，代表它運作得不順暢並發出啪啪聲。這輛車行駛時引擎發出爆裂聲。" },
-    { front: "flop", back: "徹底失敗、完全失敗之物", pos: "名詞", sentence: "Something that is a flop is a complete failure. The cake he baked was a flop and tasted awful.", translation: "flop 指的是徹底的失敗。他烤的蛋糕徹底失敗，味道很糟。" },
-    { front: "incandescent", back: "白熾的、發白光的", pos: "形容詞", sentence: "Something that is incandescent gives off a lot of light. We replaced the burnt out light bulbs with incandescent bulbs.", translation: "白熾的東西會發出大量的光。我們把燒壞的燈泡換成白熾燈泡。" },
-    { front: "cylinder", back: "圓柱體、汽缸", pos: "名詞", sentence: "A cylinder has circular ends and straight sides. In an engine, a cylinder takes in gas to make other parts move. The mechanic replaced the leaky cylinder with a new one.", translation: "圓柱體有圓形的兩端和筆直的側面。在引擎裡，汽缸吸入氣體以帶動其他零件運轉。技師把漏氣的汽缸換成新的。" },
-    { front: "patents", back: "專利、專利證書", pos: "名詞", sentence: "Patents are legal documents. If you get a patent for an invention, no one else is allowed to make or sell it. Scientists protect their inventions with patents so no one can copy them.", translation: "專利是一種法律文件。如果你為一項發明取得專利，其他人就不能製造或販售它。科學家用專利保護發明，以免被抄襲。" },
-    { front: "excel", back: "擅長、表現優秀", pos: "動詞", sentence: "To excel at something is to be very good at it. My brother passed the FCE exam last year. He excels in English.", translation: "在某件事上表現優秀就是非常擅長那件事。我哥哥去年通過了 FCE 考試，他的英文很出色。" },
-    { front: "microphone", back: "麥克風", pos: "名詞", sentence: "A device that is used for recording sounds or for making your voice louder. The police recorded the criminals’ plans on a hidden microphone.", translation: "麥克風是用來錄音或放大聲音的裝置。警方用隱藏式麥克風錄下了罪犯的計畫。" },
-    { front: "saxophone", back: "薩克斯風", pos: "名詞", sentence: "A musical instrument that you blow into. It belongs to the woodwind family. A lot of jazz music involves the saxophone.", translation: "薩克斯風是一種用嘴吹奏的樂器，屬於木管樂器家族。許多爵士樂都會用到薩克斯風。" },
-    { front: "phonetics", back: "語音學", pos: "名詞", sentence: "The study of speech sounds and how they are produced. Students learn phonetics when they study a foreign language.", translation: "語音學是研究語音及其發音方式的學問。學生在學習外語時會學到語音學。" },
-    { front: "homophone", back: "同音異義字", pos: "名詞", sentence: "A word that is pronounced like another word but has a different spelling or meaning. Plain and plane are homophones.", translation: "同音異義字是發音相同、但拼法或意思不同的字。plain 和 plane 就是一組同音異義字。" },
-    { front: "extinct", back: "絕種的、滅絕的", pos: "形容詞", sentence: "No longer in existence. Dinosaurs are extinct.", translation: "不復存在的。恐龍已經滅絕了。" },
-    { front: "extension", back: "擴大、延伸、電話分機", pos: "名詞", sentence: "The act of increasing the area of activity or group of people. The extension of new technology could change health care forever.", translation: "擴大活動範圍或群體規模的行為。新科技的普及可能徹底改變醫療照護。" },
-    { front: "elapse", back: "（時間）消逝、流逝", pos: "動詞", sentence: "If a period of time elapses, it passes. Many years elapsed before they met again.", translation: "一段時間消逝，就是它過去了。過了許多年他們才再次相見。" },
-    { front: "eject", back: "逐出、驅逐、彈出", pos: "動詞", sentence: "To push/ force somebody/ something out. The teacher ejected 2 students from the class.", translation: "把某人或某物驅逐出去。老師把兩名學生趕出了教室。" },
-    { front: "exterior", back: "外部、外表", pos: "名詞", sentence: "The outside of something, especially a building. The exterior of the new building looks cool.", translation: "某物的外部，尤指建築物。這棟新大樓的外觀看起來很酷。" },
-    { front: "enormity", back: "巨大、嚴重性", pos: "名詞", sentence: "The very great size, effect, etc. of something; the fact of something being very serious. The full enormity of the damage the earthquake caused is not yet known.", translation: "某事物的巨大程度、影響等；某事物非常嚴重的事實。地震造成損害的嚴重程度目前尚未清楚。" },
-    { front: "spectator", back: "觀眾、旁觀者", pos: "名詞", sentence: "A person who is watching an event, especially a sports event. The new football stadium will hold 75 000 spectators.", translation: "觀看活動的人，尤指觀看體育賽事的人。新的足球場將可容納七萬五千名觀眾。" },
-    { front: "sensation", back: "感覺、知覺", pos: "名詞", sentence: "A feeling that you get when something affects your body. I had a sensation of falling as if I were in a dream.", translation: "某事物影響身體時產生的感覺。我有一種彷彿在夢中墜落的感覺。" },
-    { front: "invisible", back: "看不見的、隱形的", pos: "形容詞", sentence: "Something that cannot be seen. A wizard who can make himself invisible.", translation: "看不見的東西。一位能讓自己隱形的巫師。" },
-    { front: "twinkling", back: "閃爍、閃耀", pos: "動詞", sentence: "To shine with a light that keeps changing from bright to pale to bright again. The stars are twinkling in the sky.", translation: "發出忽明忽暗、不斷變化的光。星星在天空中閃爍。" },
-    { front: "tropical", back: "熱帶的", pos: "形容詞", sentence: "Coming from or found near the tropics (area near the equator.) Malaysia’s climate is tropical.", translation: "來自或存在於熱帶（靠近赤道的地區）。馬來西亞的氣候是熱帶氣候。" },
-    { front: "prosperous", back: "繁榮的、富裕的", pos: "形容詞", sentence: "Rich and successful. People are more prosperous in the north of the country.", translation: "富裕且成功的。這個國家北部的人們較為富裕。" },
-    { front: "subsequent", back: "隨後的、後來的", pos: "形容詞", sentence: "Happening or coming after something else. Subsequent generations will learn languages differently than we do today.", translation: "發生在其他事情之後的。後代學習語言的方式將與我們現在不同。" },
-    { front: "bustling", back: "熙熙攘攘的、繁忙的", pos: "形容詞", sentence: "Full of people moving about in a busy way. The market was bustling with life.", translation: "到處都是忙碌走動的人群。市場裡熙來攘往、充滿活力。" },
-    { front: "soccer", back: "英式足球", pos: "名詞", sentence: "A game played by two teams of 11 players, using a round ball which players kick. They were watching a game of soccer on TV.", translation: "由兩隊各十一名球員用腳踢圓球進行的比賽。他們當時正在電視上看一場足球賽。" },
-    { front: "chore", back: "家務雜事、日常瑣事", pos: "名詞", sentence: "A task that you do regularly. I do many chores around the house for my pocket money.", translation: "你經常做的任務。我為了零用錢在家裡做了很多家事。" },
+    { front: "locomotives", back: "火車頭\nLocomotives are the engines that make a train go forward.", pos: "名詞", sentence: "Old locomotives are kept in the museum.", translation: "舊火車頭被保存在博物館裡。" },
+    { front: "chugged", back: "嘟嘟作響地前進\nIf a machine chugged along, it moved slowly and noisily.", pos: "動詞", sentence: "The old train chugged up the hill.", translation: "那輛老火車嘟嘟地爬上山坡。" },
+    { front: "gadgets", back: "小玩意、小工具\nGadgets are small, specialized machines or electronic devices.", pos: "名詞", sentence: "She loves buying new kitchen gadgets.", translation: "她喜歡買新的廚房小工具。" },
+    { front: "phonograph", back: "留聲機\nA phonograph is an old machine that played recorded music or sound.", pos: "名詞", sentence: "He found an old phonograph at home.", translation: "他在家裡找到一台舊留聲機。" },
+    { front: "sputtered", back: "發出爆裂聲、噴濺\nIf something sputtered, it worked in a rough or uneven way and made popping noises.", pos: "動詞", sentence: "The car engine sputtered and stopped.", translation: "車子的引擎發出爆裂聲後就熄火了。" },
+    { front: "flop", back: "徹底失敗、完全失敗之物\nSomething that is a flop is a complete failure.", pos: "名詞", sentence: "The new movie was a total flop.", translation: "那部新電影徹底失敗了。" },
+    { front: "incandescent", back: "白熾的、發白光的\nSomething that is incandescent gives off a lot of light.", pos: "形容詞", sentence: "The room had bright incandescent lights.", translation: "房間裡有明亮的白熾燈。" },
+    { front: "cylinder", back: "圓柱體、汽缸\nA cylinder has circular ends and straight sides. In an engine, a cylinder takes in gas to make other parts move.", pos: "名詞", sentence: "Each engine has six metal cylinders.", translation: "每具引擎都有六個金屬汽缸。" },
+    { front: "patents", back: "專利、專利證書\nPatents are legal documents. If you get a patent for an invention, no one else is allowed to make or sell it.", pos: "名詞", sentence: "The company owns several new patents.", translation: "這家公司擁有好幾項新專利。" },
+    { front: "excel", back: "擅長、表現優秀\nTo excel at something is to be very good at it.", pos: "動詞", sentence: "She always excels in math class.", translation: "她在數學課上總是表現優秀。" },
+    { front: "microphone", back: "麥克風\nA device that is used for recording sounds or for making your voice louder.", pos: "名詞", sentence: "He spoke clearly into the microphone.", translation: "他對著麥克風清楚地說話。" },
+    { front: "saxophone", back: "薩克斯風\nA musical instrument that you blow into. It belongs to the woodwind family.", pos: "名詞", sentence: "My uncle plays the saxophone well.", translation: "我叔叔薩克斯風吹得很好。" },
+    { front: "phonetics", back: "語音學\nThe study of speech sounds and how they are produced.", pos: "名詞", sentence: "We studied phonetics in English class.", translation: "我們在英文課學了語音學。" },
+    { front: "homophone", back: "同音異義字\nA word that is pronounced like another word but has a different spelling or meaning.", pos: "名詞", sentence: "'Sea' and 'see' are homophones.", translation: "sea 和 see 是同音異義字。" },
+    { front: "extinct", back: "絕種的、滅絕的\nNo longer in existence.", pos: "形容詞", sentence: "Many dinosaurs became extinct long ago.", translation: "許多恐龍很久以前就滅絕了。" },
+    { front: "extension", back: "擴大、延伸、電話分機\nThe act of increasing the area of activity or group of people.", pos: "名詞", sentence: "We asked for a short extension.", translation: "我們要求延長一小段時間。" },
+    { front: "elapse", back: "（時間）消逝、流逝\nIf a period of time elapses, it passes.", pos: "動詞", sentence: "Two hours elapsed before he returned.", translation: "過了兩個小時他才回來。" },
+    { front: "eject", back: "逐出、驅逐、彈出\nTo push/ force somebody/ something out.", pos: "動詞", sentence: "The machine ejected the used ticket.", translation: "機器把用過的票券退出來。" },
+    { front: "exterior", back: "外部、外表\nThe outside of something, especially a building.", pos: "名詞", sentence: "The house has a white exterior.", translation: "這棟房子的外觀是白色的。" },
+    { front: "enormity", back: "巨大、嚴重性\nThe very great size, effect, etc. of something; the fact of something being very serious.", pos: "名詞", sentence: "We understood the enormity of the task.", translation: "我們了解了這項任務的艱鉅程度。" },
+    { front: "spectator", back: "觀眾、旁觀者\nA person who is watching an event, especially a sports event.", pos: "名詞", sentence: "Every spectator cheered for the team.", translation: "每位觀眾都為球隊歡呼。" },
+    { front: "sensation", back: "感覺、知覺\nA feeling that you get when something affects your body.", pos: "名詞", sentence: "She felt a strange sensation in her arm.", translation: "她的手臂感覺到一種奇怪的感覺。" },
+    { front: "invisible", back: "看不見的、隱形的\nSomething that cannot be seen.", pos: "形容詞", sentence: "The ink becomes invisible when dry.", translation: "這種墨水乾了以後會變得看不見。" },
+    { front: "twinkling", back: "閃爍、閃耀\nTo shine with a light that keeps changing from bright to pale to bright again.", pos: "動詞", sentence: "The city lights were twinkling brightly.", translation: "城市的燈光閃爍得很明亮。" },
+    { front: "tropical", back: "熱帶的\nComing from or found near the tropics (area near the equator.)", pos: "形容詞", sentence: "We visited a tropical island last year.", translation: "我們去年去了一座熱帶島嶼。" },
+    { front: "prosperous", back: "繁榮的、富裕的\nRich and successful.", pos: "形容詞", sentence: "Their business became very prosperous.", translation: "他們的生意變得非常興隆。" },
+    { front: "subsequent", back: "隨後的、後來的\nHappening or coming after something else.", pos: "形容詞", sentence: "Subsequent events changed his plans completely.", translation: "後續發生的事完全改變了他的計畫。" },
+    { front: "bustling", back: "熙熙攘攘的、繁忙的\nFull of people moving about in a busy way.", pos: "形容詞", sentence: "The bustling market was full of noise.", translation: "那個熙熙攘攘的市場充滿了噪音。" },
+    { front: "soccer", back: "英式足球\nA game played by two teams of 11 players, using a round ball which players kick.", pos: "名詞", sentence: "The children play soccer after school.", translation: "孩子們放學後會踢足球。" },
+    { front: "chore", back: "家務雜事、日常瑣事\nA task that you do regularly.", pos: "名詞", sentence: "Washing dishes is my least favorite chore.", translation: "洗碗是我最不喜歡的家務。" },
   ].map(function (c, i) { c.id = i; return c; });
 
   var state = {
@@ -374,7 +374,7 @@
   function renderExample() {
     var card = current();
     document.getElementById("exampleBlock").innerHTML =
-      '<div class="vl-example-head">例句</div>' +
+      '<div class="vl-example-head">PET Level 例句</div>' +
       '<div class="vl-example-body">' +
         '<div class="vl-example-sentence">' + escapeHtml(card.sentence) +
           '<button class="vl-example-play" data-action="play-example" aria-label="播放例句發音">🔊</button>' +
@@ -486,7 +486,7 @@
     else if (action === "play-back") speak(current().back);
     else if (action === "play-example") playExample();
     else if (action === "prev") goTo(state.pos - 1);
-    else if (action === "next") goTo(state.pos + 1);
+    else if (action === "next") { goTo(state.pos + 1); speak(current().front); }
     else if (action === "shuffle") shuffleDeck();
     else if (action === "toggle-mastered") toggleMastered();
     else if (action === "set-lang") setLangMode(btn.getAttribute("data-lang"));
